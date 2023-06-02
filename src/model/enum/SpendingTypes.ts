@@ -1,0 +1,9 @@
+export enum SpendingTypes {
+    GROCERY = 'GROCERY',
+    BILLS = 'BILLS',
+    SCHOOL = 'SCHOOL',
+    HEALTH = 'HEALTH',
+    TRANSPORTATION = 'TRANSPORTATION',
+    CLOTHING = 'CLOTHING',
+    ENTERTAINMENT = 'ENTERTAINMENT'
+  }
