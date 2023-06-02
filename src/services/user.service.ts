@@ -33,4 +33,7 @@ export class UserService {
   getUserSpendings(id: number): Observable<Spending[]> {
     return this.http.get<Spending[]>(`${this.baseUrl}users/${id}/spendings`);
   }
+  findUserWithHighestTotalSpend(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}users/most-spending`);
+  }
 }

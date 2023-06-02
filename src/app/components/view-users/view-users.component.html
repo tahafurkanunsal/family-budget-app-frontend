@@ -36,41 +36,67 @@
       </nav>
     <!--Main Content-->
     <div class="mt-5">
-        <h1 class="text-center">View Users</h1>
-        <div class="container">
-            <!--Add User Button-->
-            <div class="my-3">
-              <a routerLink="add" class="btn btn-primary">Add User</a>
-            </div>
-            <table class="table border" >
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">FirstName</th>
-                    <th scope="col">LastName</th>
-                    <th scope="col">Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let user of users">
-                    <td>{{user.id}}</td>
-                    <td>{{user.firstName}}</td>
-                    <td>{{user.lastName}}</td>
-                    <td>{{user.username}}</td>
-                    <td>
-                      
-                      <div class="d-inline mx-2">
-                        <button class="btn btn-warning" (click)="updateUser(user.id)" type="button">Update</button>
-                    </div>
-                    <div class="d-inline">
-                      <button class="btn btn-danger" (click)="deleteUser(user.id)" type="button">Delete</button>
-                    </div>
-
-                    </td> 
-                  </tr>
-                </tbody>
-              </table>
+      <h1 class="text-center">View Users</h1>
+      <div class="container">
+        <div class="d-flex justify-content-start align-items-center">
+          <div class="my-3">
+            <a routerLink="add" class="btn btn-primary">Add User</a>
+          </div>
+          <div class="my-3 mx-2">
+            <a class="btn btn-primary" (click)="findUserWithHighestTotalSpend()">Find User With Highest Total Spend</a>
+          </div>
+          <div class="my-3 mx-2">
+            <a class="btn btn-secondary" (click)="clearFilter()">Clear Filter</a>
+          </div>
         </div>
-    </div>
+    
+        <table class="table border">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">FirstName</th>
+              <th scope="col">LastName</th>
+              <th scope="col">Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="filteredUser">
+              <!-- Display filtered user -->
+              <tr>
+                <td>{{ filteredUser.id }}</td>
+                <td>{{ filteredUser.firstName }}</td>
+                <td>{{ filteredUser.lastName }}</td>
+                <td>{{ filteredUser.username }}</td>
+                <td>
+                  <div class="d-inline mx-2">
+                    <button class="btn btn-warning" (click)="updateUser(filteredUser.id)" type="button">Update</button>
+                  </div>
+                  <div class="d-inline">
+                    <button class="btn btn-danger" (click)="deleteUser(filteredUser.id)" type="button">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="!filteredUser">
+              <!-- Display all users -->
+              <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                  <div class="d-inline mx-2">
+                    <button class="btn btn-warning" (click)="updateUser(user.id)" type="button">Update</button>
+                  </div>
+                  <div class="d-inline">
+                    <button class="btn btn-danger" (click)="deleteUser(user.id)" type="button">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>    
 </body>
 </html>
