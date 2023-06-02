@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Spendings</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Family Budget App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="add">Add User</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="spendings/add">Add Spending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">View Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="spendings">View Spending</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="mt-5">
+    <h1 class="text-center">View Spendings</h1>
+    <div class="container">
+      <div class="my-3">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate">
+          </div>
+          <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate">
+          </div>
+          <button class="btn btn-primary ml-2 my-1" (click)="getSpendingsByDate()">Filter</button>
+        </div>
+        <div class="my-3">
+          <div class="form-inline">
+            <div class="form-group">
+              <label for="userId">User ID:</label>
+              <input type="number" class="form-control" id="userId" [(ngModel)]="userId">
+            </div>
+            <button class="btn btn-primary ml-2 my-1" (click)="getSpendingsByUser()">Filter by User</button>
+          </div>
+        </div>
+        <div class="my-3">
+          <a href="spendings/add" class="btn btn-primary">Add Spending</a>
+        </div>
+      </div>
+      <table class="table border">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Spending Type</th>
+            <th scope="col">Billing Type</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let spending of spendings">
+            <tr>
+              <td>{{ spending.id }}</td>
+              <td>{{ spending.date }}</td>
+              <td>{{ spending.price }}</td>
+              <td>{{ spending.type }}</td>
+              <td>{{ spending.billingType }}</td>
+              <td>{{ spending.user.id }}</td>
+              <td>
+                <button (click)="showDetails(spending)"
+                  [ngClass]="{'btn btn-warning': !spending.showDetails, 'btn btn-danger': spending.showDetails}">
+                  {{ spending.showDetails ? 'Hide Details' : 'Show Details' }}
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-danger ml-3" (click)="deleteSpending(spending.id)">Delete</button>
+              </td>
+            </tr>
+            <tr *ngIf="spending.showDetails">
+              <td colspan="7">
+                <table class="table border">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Detail Price</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let detail of spending.details; let i = index;">
+                      <td>{{ detail.productName }}</td>
+                      <td>{{ detail.detailPrice }}</td>
+                      <td>{{ detail.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
+</html>

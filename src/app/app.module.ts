@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,9 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateusersComponent } from './components/updateusers/updateusers.component';
 import { ViewSpendingsComponent } from './components/view-spendings/view-spendings.component';
 import { AddSpendingsComponent } from './components/add-spendings/add-spendings.component';
-import { SpendingService } from 'src/services/spending.service';
+import { registerLocaleData } from '@angular/common';
+import localeTr from '@angular/common/locales/tr';
 
-
+registerLocaleData(localeTr, 'tr'); 
 
 @NgModule({
   declarations: [
@@ -30,6 +31,10 @@ import { SpendingService } from 'src/services/spending.service';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule 
+  ],
+
+  providers: [
+    { provide: LOCALE_ID, useValue: 'tr' }
   ],
 
   bootstrap: [AppComponent]
