@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from 'src/model/User';
 import { Spending } from 'src/model/Spending';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,16 @@ export class UserService {
   findUserWithHighestTotalSpend(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}users/most-spending`);
   }
-}
+  
+  findHighestTotalSpendOnGivenDate(startDate: string, endDate: string): Observable<User> {
+      const params = new HttpParams()
+        .set('startDate', startDate)
+        .set('endDate', endDate);
+    
+      return this.http.get<User>(`${this.baseUrl}users/most-spending`, { params });
+    }
+
+    sortUsersBySpendingSize(): Observable<User[]> {
+      return this.http.get<User[]>(`${this.baseUrl}users/sort-by-spendings`);
+    }
+  }

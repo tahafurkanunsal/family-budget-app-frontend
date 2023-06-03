@@ -61,14 +61,12 @@ export class AddSpendingsComponent implements OnInit {
   
       data.details = this.details;
 
-      // Create the SpendingDetail object
       const detail: SpendingDetail = {
         productName: data.productName,
         detailPrice: data.detailPrice,
         description: data.description
       };
   
-      // Add the detail to the spending's details array
       data.details = [detail];
   
       const datePipe = new DatePipe('tr-TR');

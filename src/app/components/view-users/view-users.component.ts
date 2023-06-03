@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/model/User';
@@ -10,8 +11,11 @@ import { UserService } from 'src/services/user.service';
 })
 export class ViewUsersComponent implements OnInit {
   users: User[] = [];
-  filteredUser: User | null = null; // Variable to store the filtered user
-  originalUsers: User[] = []; // Variable to store the original list of users
+  filteredUser: User | null = null; 
+  originalUsers: User[] = []; 
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -47,9 +51,30 @@ export class ViewUsersComponent implements OnInit {
       }
     });
   }
+  findHighestTotalSpendOnGivenDate() {
+    if (this.startDate && this.endDate) {
+      const formattedStartDate = formatDate(this.startDate, 'yyyy-MMM-dd', 'tr');
+      const formattedEndDate = formatDate(this.endDate, 'yyyy-MMM-dd', 'tr');
+
+      this.userService.findHighestTotalSpendOnGivenDate(formattedStartDate, formattedEndDate).subscribe(user => {
+        if (user) {
+          this.filteredUser = user;
+        }
+      });
+    }
+  }
+
+  sortUsersBySpendingSize() {
+    this.userService.sortUsersBySpendingSize().subscribe(users => {
+      this.users = users;
+    });
+  }
+
 
   clearFilter() {
     this.filteredUser = null;
     this.users = this.originalUsers;
+    this.startDate = null;
+    this.endDate = null;
   }
 }

@@ -33,7 +33,7 @@ export class AddUsersComponent implements OnInit {
 
       this.userService.create(data).subscribe(response => {
         console.log(response);
-        this.router.navigate(['/']); // Redirect to home page after successful submission
+        this.router.navigate(['/']);
       });
   }
  }

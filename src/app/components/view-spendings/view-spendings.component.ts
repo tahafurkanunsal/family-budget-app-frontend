@@ -60,4 +60,10 @@ export class ViewSpendingsComponent implements OnInit {
       });
     }
   }
+  clearFilter() {
+    this.startDate = new Date();
+    this.endDate = new Date();
+    this.userId = undefined;
+    this.loadAllSpendings();
+  }
 }
