@@ -12,6 +12,15 @@ import { ViewSpendingsComponent } from './components/view-spendings/view-spendin
 import { AddSpendingsComponent } from './components/add-spendings/add-spendings.component';
 import { registerLocaleData } from '@angular/common';
 import localeTr from '@angular/common/locales/tr';
+import { HomeComponent } from './components/home/home.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgChartsModule } from 'ng2-charts';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { MonthlySpendingComponent } from './components/monthly-spending/monthly-spending.component';
+import { SpendingTypeComponent } from './components/spending-type/spending-type.component';
+import { BillingTypeComponent } from './components/billing-type/billing-type.component';
+
+
 
 registerLocaleData(localeTr, 'tr'); 
 
@@ -23,14 +32,20 @@ registerLocaleData(localeTr, 'tr');
     UpdateusersComponent,
     ViewSpendingsComponent,
     AddSpendingsComponent,
-    
+    HomeComponent,
+    MonthlySpendingComponent,
+    SpendingTypeComponent,
+    BillingTypeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    NgxChartsModule,
+    NgChartsModule,
+    HighchartsChartModule,
   ],
 
   providers: [
